@@ -45,3 +45,10 @@ The application waits for the active call status and once it is active, the mess
  - Emic2 5v to 5v 
  - Emic2 GND to GND
 
+**Screenshots**
+
+![Circuit](https://raw.githubusercontent.com/krvarma/Voice-Message-Particle/master/images/circuit.JPG)
+
+![Web Interface](https://raw.githubusercontent.com/krvarma/Voice-Message-Particle/master/images/web.png)
+
+**Demo Video**
