@@ -64,4 +64,4 @@ Once the call is placed, the application waits for the active call status to bec
 
 **Demo Video**
 
-[Voice Messaging sample demo](https://youtu.be/dfa3WrB7OzY)
+https://www.youtube.com/watch?v=dfa3WrB7OzY&feature=youtu.be
