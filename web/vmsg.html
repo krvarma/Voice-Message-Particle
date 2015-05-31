@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <script type="text/javascript" src="jscolor/jscolor.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="jquery.blockUI.js"></script>
+	<style>
+        .body {
+            text-align: left;
+            background-color: #F3F3F3;
+			font-family: verdana;
+			font-size: 8pt;
+        }
+		
+		.inputtable {
+            
+        }
+		
+		.inputlabel {
+            font-weight: bold;
+            padding: 8px 5px;
+            color: #444;
+            border: 1px solid #d4d4d4;
+            line-height: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+		
+		.inputfield {
+            padding: 8px 8px;
+            border: 1px solid #d4d4d4;
+            line-height: 20px;
+        }
+		
+		.inputbutton {
+            margin: 0;
+            padding: 5px 5px;
+            font: inherit;
+            line-height: 20px;
+        }
+	</style>
+	<script>
+		function sendmessage(){
+			console.log("Sending voice message...");
+			
+			var deviceID = "<<deviceid>>";
+			var accessToken = "<<accesstoken>>";
+			var number = document.getElementById("tnumber").value;
+			var message = document.getElementById("message").value;
+			
+			console.log("	Number: " + number);
+			console.log("	Message: " + message);
+			
+			$.blockUI({ css: { 
+				border: 'none', 
+				padding: '15px', 
+				backgroundColor: '#000', 
+				'-webkit-border-radius': '10px', 
+				'-moz-border-radius': '10px', 
+				opacity: .5, 
+				color: '#fff'
+			}, message: '<h1>Sending message...</h1>' }); 
+			
+			$.post("https://api.particle.io/v1/devices/" + deviceID + "/setnumber?access_token=" + accessToken,
+				{
+					args:number
+				},
+				function(result){
+					console.log("Set Number: " + result);
+					
+					$.post("https://api.particle.io/v1/devices/" + deviceID + "/sendvoice?access_token=" + accessToken,
+						{
+							args:message
+						},
+						function(result){
+							console.log("Send Voice Message: " + result);
+							
+							$.unblockUI();
+						}
+					);
+				}
+			);
+		}
+	</script>
+  </head>
+  <body class="body">
+	<p><h1>Voice Message demo using Particle Core, GSM Breakout Board and Emic2 TTS Module</h1></p>
+	</br></br>
+	<table class="inputtable">
+		<tr>
+			<td><p class="inputlabel">Phone Number</p></td>
+			<td><input type="tel" id="tnumber" class="inputfield"/></td>
+		<tr>
+		<tr>
+			<td><p class="inputlabel">Message to send</p></td>
+			<td><input type="text" maxlength="64" size="64" id="message" class="inputfield"/></td>
+		<tr>
+		<tr>
+			<td colspan="2" align="right"><input type="button", name="btnSend" value="Send Message" onclick="javascript:sendmessage();" class="inputbutton"/></td>
+		<tr>
+	</table>
+  </body>
+</html>
